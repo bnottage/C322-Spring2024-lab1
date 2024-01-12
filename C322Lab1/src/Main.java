@@ -5,44 +5,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-        //P1 Test
-        int[] nums = {2, 7, 11, 15};
-        System.out.println(twoSum(nums, 9)[0]);
-        System.out.println(twoSum(nums, 9)[1]);
-
-        //P2 Test
-        System.out.println(isPalindrome(121));
-        System.out.println(isPalindrome(-121));
-        System.out.println(isPalindrome(10));
-
-        //P3 Test
-        String[] strs = {"flower", "flow", "flight"};
-        System.out.println(longestCommonPrefix(strs));
-
-        //P4 Test
-        System.out.println(roman("III"));
-
-        //P5 Test
-        System.out.println(validbrack("()"));
-        System.out.println(validbrack("()[]{}"));
-        System.out.println(validbrack("(]"));
-        System.out.println(validbrack("([)]"));
-        System.out.println(validbrack("{[]}"));
-
-        //P6 Test
-
-
-        //P7 Test
-        int[] nums2 = {1, 2, 3};
-        int[] result = largeint(nums2);
-        for (int i = 0; i < result.length; i++) {
-            System.out.println(result[i]);
-        }
 
     }
 
-    //Problem 1: Function to generate indices for target integer from an
-    //array of integers called nums
+    //Problem 1: Function to generate indices
     public static int[] twoSum(int[] nums, int target) {
         for (int j = 0; j < nums.length; j++) {
             for (int k = j + 1; k < nums.length; k++) {
@@ -55,8 +21,7 @@ public class Main {
     }
 
 
-    //Problem 2: Given integer x, return true if x is a palindrome,
-    //otherwise return false
+    //Problem 2: Determine if an int is a palin
 
     public static boolean isPalindrome(int x) {
         String s = Integer.toString(x);
@@ -71,8 +36,6 @@ public class Main {
     }
 
     //Problem 3:Write a function to find the longest common prefix string
-    //amongst an array of strings. If there is no common prefix, return an
-    //empty string "".
 
     public static String longestCommonPrefix(String[] strs) {
         String prefix = "";
@@ -94,36 +57,55 @@ public class Main {
         return prefix;
     }
 
-    //Problem 4: Given a roman numeral, convert it to an integer.
+    //Problem 4: Convert roman numeral to an integer.
     public static int roman(String rn) {
         int sum = 0;
 
         for (int i = 0; i < rn.length(); i++) {
             if (rn.charAt(i) == 'I') {
                 sum += 1;
-            }
-            else if (rn.charAt(i) == 'V') {
+            } else if (rn.charAt(i) == 'V') {
                 sum += 5;
-            }
-            else if (rn.charAt(i) == 'X') {
+
+                if (i > 0 && rn.charAt(i - 1) == 'I') {
+                    sum -= 2;
+                }
+            } else if (rn.charAt(i) == 'X') {
                 sum += 10;
-            }
-            else if (rn.charAt(i) == 'L') {
+
+                if (i > 0 && rn.charAt(i - 1) == 'I') {
+                    sum -= 2;
+                }
+            } else if (rn.charAt(i) == 'L') {
                 sum += 50;
-            }
-            else if (rn.charAt(i) == 'C') {
+
+                if (i > 0 && rn.charAt(i - 1) == 'X') {
+                    sum -= 20;
+                }
+            } else if (rn.charAt(i) == 'C') {
                 sum += 100;
-            }
-            else if (rn.charAt(i) == 'D') {
+
+                if (i > 0 && rn.charAt(i - 1) == 'X') {
+                    sum -= 20;
+                }
+            } else if (rn.charAt(i) == 'D') {
                 sum += 500;
-            }
-            else if (rn.charAt(i) == 'M') {
+
+                if (i > 0 && rn.charAt(i - 1) == 'C') {
+                    sum -= 200;
+                }
+            } else if (rn.charAt(i) == 'M') {
                 sum += 1000;
+
+                if (i > 0 && rn.charAt(i - 1) == 'C') {
+                    sum -= 200;
+                }
             }
         }
 
         return sum;
     }
+
 
     //Problem 5: Given a string s containing just the characters '(', ')', '{', '}', '[' and ']',
     //determine if the input string is valid.
@@ -159,33 +141,33 @@ public class Main {
     }
 
     //Problem 6: Merge two linked lists into one sorted list
-    public static LinkedList<Integer> merge(LinkedList<Integer> l1, LinkedList<Integer> l2) {
-        LinkedList<Integer> result = new LinkedList<Integer>();
-        int i = 0;
-        int j = 0;
+    public static LinkedList<Integer> merge(LinkedList<Integer> l1, LinkedList<Integer> l2)
+    {
+        LinkedList<Integer> mergedList = new LinkedList<>();
+
+        int i = 0, j = 0;
 
         while (i < l1.size() && j < l2.size()) {
-            if (l1.get(i) < l2.get(j)) {
-                result.add(l1.get(i));
+            if (l1.get(i) <= l2.get(j)) {
+                mergedList.add(l1.get(i));
                 i++;
-            }
-            else {
-                result.add(l2.get(j));
+            } else {
+                mergedList.add(l2.get(j));
                 j++;
             }
         }
 
         while (i < l1.size()) {
-            result.add(l1.get(i));
+            mergedList.add(l1.get(i));
             i++;
         }
 
         while (j < l2.size()) {
-            result.add(l2.get(j));
+            mergedList.add(l2.get(j));
             j++;
         }
 
-        return result;
+        return mergedList;
     }
 
 
